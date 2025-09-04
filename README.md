@@ -1,5 +1,7 @@
 # Smart Content Creation Pipeline - AI Multi-Agent System
 
+## LIVE LINK : https://ai-multi-agent.netlify.app/
+
 ## Problem Statement
 
 In today's digital landscape, content creators and marketing teams face the challenge of producing high-quality, platform-specific content at scale. Creating content that is optimized for different platforms (social media, blogs, newsletters) while maintaining consistency, accuracy, and engagement is time-consuming and requires diverse expertise.
@@ -176,9 +178,6 @@ smart-content-pipeline/
 └── README.md
 ```
 
-## Demo
-
-[Live Demo Link] - (To be deployed on Streamlit Cloud)
 
 ## Future Enhancements
 
