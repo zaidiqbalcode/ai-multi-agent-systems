@@ -143,11 +143,7 @@ export const ContentProvider = ({ children }) => {
   );
 };
 
-// Helper functions to generate sample content
-const generateSampleContent = (formData) => {
-  return `This is a ${formData.contentType} about ${formData.topic} targeted at ${formData.targetAudience} with a ${formData.tone} tone. The content will be optimized for ${formData.platforms.join(', ')} platforms.`;
-};
-
+// Helper functions to generate fallback content
 const generateFinalContent = (formData) => {
   const topic = formData.topic;
   const contentType = formData.contentType;
