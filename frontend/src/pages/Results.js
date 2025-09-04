@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Eye, Share2, BarChart3, Clock, FileText } from 'lucide-react';
 import { ContentContext } from '../context/ContentContext';
-import ContentCard from '../components/ContentCard';
 
 const Results = () => {
   const { results } = useContext(ContentContext);

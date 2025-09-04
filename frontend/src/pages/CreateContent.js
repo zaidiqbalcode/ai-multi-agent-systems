@@ -108,8 +108,8 @@ const CreateContent = () => {
         keywords: formData.keywords ? formData.keywords.split(',').map(k => k.trim()) : []
       };
       
-      // Create content (this would call the actual API in production)
-      const result = await createContent(contentData);
+  // Create content (this would call the actual API in production)
+  await createContent(contentData); // result not needed directly here
       
       toast.success('Content created successfully!');
       navigate('/results');
