@@ -45,12 +45,7 @@ python test_api_keys.py
 
 ## 🚀 Running Your AI Agents
 
-### Option 1: Demo Mode (No API required)
-```bash
-python demo.py
-```
-
-### Option 2: Full Pipeline with APIs
+### Option 1: Full Pipeline with APIs
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -63,7 +58,7 @@ cd frontend
 npm start
 ```
 
-### Option 3: Test Individual Components
+### Option 2: Test Individual Components
 ```bash
 # Test main pipeline
 python main.py
@@ -86,8 +81,8 @@ For your CODING NINJAS assignment, I recommend:
 
 1. **Start with OpenAI GPT-3.5 Turbo** (cheapest, fastest)
 2. **Get $5 free credit** with new account
-3. **Test with demo first** to see the system working
-4. **Add API keys only when ready** to showcase live functionality
+3. **Set up API keys** to showcase live functionality
+4. **Test the complete pipeline** to demonstrate AI multi-agent collaboration
 
 ## 📞 Support
 

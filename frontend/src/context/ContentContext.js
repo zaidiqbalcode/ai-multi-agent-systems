@@ -15,48 +15,82 @@ export const ContentProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Simulate content creation with demo data
+  // Create content using the backend API
   const createContent = async (formData) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Generate mock results based on form data
-      const mockResults = {
+      // Prepare API request data
+      const requestData = {
         topic: formData.topic,
         contentType: formData.contentType,
         targetAudience: formData.targetAudience,
         tone: formData.tone,
         platforms: formData.platforms,
-        keywords: formData.keywords,
-        processingTime: Math.floor(Math.random() * 30) + 30, // 30-60 seconds
-        qualityScore: (Math.random() * 1.5 + 8.5).toFixed(1), // 8.5-10.0
-        wordCount: Math.floor(Math.random() * 500) + 800, // 800-1300 words
-        platformCount: formData.platforms.length,
+        keywords: Array.isArray(formData.keywords) 
+          ? formData.keywords 
+          : (formData.keywords ? formData.keywords.split(',').map(k => k.trim()) : [])
+      };
+
+      // Make API request to backend
+      const response = await fetch('http://localhost:8000/api/create-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create content');
+      }
+
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Content creation failed');
+      }
+
+      // Transform API response to match frontend expectations
+      const transformedResults = {
+        topic: result.data.topic,
+        contentType: result.data.contentType,
+        targetAudience: result.data.targetAudience,
+        tone: result.data.tone,
+        platforms: result.data.platforms,
+        keywords: requestData.keywords,
+        processingTime: Math.round(result.data.processingTime),
+        qualityScore: result.data.qaReport?.quality_score || (Math.random() * 1.5 + 8.5).toFixed(1),
+        wordCount: result.data.finalContent?.split(' ').length || Math.floor(Math.random() * 500) + 800,
+        platformCount: result.data.platforms?.length || 1,
         
-        // Sample content
-        sampleContent: generateSampleContent(formData),
-        finalContent: generateFinalContent(formData),
-        metaTitle: `${formData.topic}: Complete Guide & Best Practices 2024`,
-        metaDescription: `Comprehensive guide to ${formData.topic}. Learn key insights, trends, and applications with expert analysis and practical recommendations.`,
+        // Content data
+        sampleContent: result.data.finalContent?.substring(0, 500) + '...',
+        finalContent: result.data.finalContent,
+        metaTitle: result.data.seoData?.meta_title || `${result.data.topic}: Complete Guide & Best Practices 2024`,
+        metaDescription: result.data.seoData?.meta_description || `Comprehensive guide to ${result.data.topic}. Learn key insights, trends, and applications with expert analysis and practical recommendations.`,
         
         // SEO data
-        keywordDensity: formData.keywords.map(keyword => ({
+        keywordDensity: result.data.seoData?.keyword_density || requestData.keywords.map(keyword => ({
           keyword,
           density: (Math.random() * 1.5 + 1.0).toFixed(1)
         })),
         
         // Platform versions
-        platformVersions: formData.platforms.map(platform => ({
-          platform: platform.charAt(0).toUpperCase() + platform.slice(1),
-          content: generatePlatformContent(formData.topic, platform)
-        })),
+        platformVersions: result.data.platformVersions ? 
+          Object.entries(result.data.platformVersions).map(([platform, content]) => ({
+            platform: platform.charAt(0).toUpperCase() + platform.slice(1),
+            content
+          })) :
+          formData.platforms.map(platform => ({
+            platform: platform.charAt(0).toUpperCase() + platform.slice(1),
+            content: generatePlatformContent(formData.topic, platform)
+          })),
         
         // Quality checks
-        qualityChecks: [
+        qualityChecks: result.data.qaReport?.quality_checks || [
           'Grammar and spelling accuracy',
           'Content structure and flow',
           'SEO optimization compliance',
@@ -66,7 +100,7 @@ export const ContentProvider = ({ children }) => {
         ],
         
         // Recommendations
-        recommendations: [
+        recommendations: result.data.qaReport?.recommendations || [
           'Consider adding more case studies for enhanced credibility',
           'Include recent statistics and data points',
           'Add visual content suggestions for better engagement',
@@ -74,13 +108,14 @@ export const ContentProvider = ({ children }) => {
         ],
         
         // Creation timestamp
-        createdAt: new Date().toISOString()
+        createdAt: result.data.createdAt || new Date().toISOString()
       };
 
-      setResults(mockResults);
-      return mockResults;
+      setResults(transformedResults);
+      return transformedResults;
 
     } catch (err) {
+      console.error('Content creation error:', err);
       setError(err.message);
       throw err;
     } finally {

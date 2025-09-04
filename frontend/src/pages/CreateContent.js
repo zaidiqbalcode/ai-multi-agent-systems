@@ -306,7 +306,6 @@ const CreateContent = () => {
                       disabled={isProcessing}
                     >
                       <option value="backend">Backend API (Pre-configured with your keys)</option>
-                      <option value="demo">Demo Mode (No API Key Required)</option>
                       <option value="openai">OpenAI GPT (Manual Key Entry)</option>
                       <option value="google">Google Gemini (Manual Key Entry)</option>
                     </select>
@@ -329,7 +328,7 @@ const CreateContent = () => {
                     </div>
                   )}
 
-                  {formData.apiProvider !== 'demo' && formData.apiProvider !== 'backend' && (
+                  {formData.apiProvider !== 'backend' && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         API Key
