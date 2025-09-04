@@ -1,0 +1,19 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "frontend/build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirect all routes to index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# API redirection (for when you add serverless functions later)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
