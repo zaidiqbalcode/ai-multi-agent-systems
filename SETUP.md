@@ -1,15 +1,5 @@
 # Smart Content Creation Pipeline - Setup Guide
 
-## Quick Start (Demo Version)
-
-If you want to see the project in action without API keys, run the demo:
-
-```bash
-python demo.py
-```
-
-This will demonstrate the multi-agent workflow using mock responses.
-
 ## Full Setup Instructions
 
 ### 1. Clone or Download the Project
@@ -73,11 +63,6 @@ streamlit run app.py
 python main.py
 ```
 
-#### Demo Mode (No API Keys Required)
-```bash
-python demo.py
-```
-
 ## Project Structure
 
 ```
@@ -96,10 +81,9 @@ smart-content-pipeline/
 │   ├── __init__.py
 │   └── helpers.py         # Helper functions and utilities
 ├── output/                 # Generated content (created automatically)
-├── demo_output/           # Demo results (created automatically)
 ├── app.py                 # Streamlit web interface
 ├── main.py                # Main pipeline orchestrator
-├── demo.py                # Demo version (no API required)
+├── api.py                 # Flask API backend
 ├── requirements.txt       # Python dependencies
 ├── .env.example          # Environment variables template
 └── README.md             # Project documentation
@@ -207,14 +191,14 @@ This project is for educational and demonstration purposes as part of the CODING
 
 For issues or questions:
 1. Check the troubleshooting section above
-2. Review the demo.py file for working examples
+2. Review the main.py file for working examples
 3. Ensure all dependencies are properly installed
 4. Verify API keys are correctly configured
 
 ## Next Steps
 
 After setting up the project:
-1. Run the demo to understand the workflow
+1. Run the main pipeline to understand the workflow
 2. Try the web interface with your own topics
 3. Experiment with different content types and platforms
 4. Customize agent behaviors in the config files

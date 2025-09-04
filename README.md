@@ -134,11 +134,6 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### Option 3: Demo Mode (No Setup Required)
-```bash
-python demo.py
-```
-
 ### Using the System
 1. Enter your content topic and requirements
 2. Select target platforms

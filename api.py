@@ -8,14 +8,14 @@ from datetime import datetime
 # Add the project root to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Import our demo pipeline
-from demo import DemoContentPipeline
+# Import our main pipeline
+from main import SmartContentPipeline
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-# Initialize the demo pipeline
-pipeline = DemoContentPipeline()
+# Initialize the pipeline with Google Gemini (configured in .env)
+pipeline = SmartContentPipeline(llm_provider="google", model_name="gemini-1.5-flash")
 
 @app.route('/api/health', methods=['GET'])
 def health_check():

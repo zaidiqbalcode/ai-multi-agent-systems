@@ -18,11 +18,6 @@ In today's digital landscape, content creators and marketing teams face the chal
 
 ## Quick Start
 
-### Demo Mode (No API Keys Required)
-```bash
-python demo.py
-```
-
 ### Full Application
 ```bash
 pip install -r requirements.txt
@@ -159,7 +154,7 @@ smart-content-pipeline/
 ├── utils/                  # Utility functions
 ├── app.py                 # Streamlit web interface
 ├── main.py                # Pipeline orchestrator
-├── demo.py                # Demo without API keys
+├── api.py                 # Flask API backend
 └── requirements.txt       # Dependencies
 ```
 

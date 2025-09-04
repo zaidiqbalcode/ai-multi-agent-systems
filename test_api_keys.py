@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print("-" * 20)
     if openai_works or google_works:
         print("✅ At least one API is working - you're ready to go!")
-        print("💡 You can run the demo with: python demo.py")
+        print("� You can run the full pipeline with: python main.py")
     else:
         print("❌ No working APIs found")
         print("📝 Please add your API keys to the .env file")
