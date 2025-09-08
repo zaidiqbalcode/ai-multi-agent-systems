@@ -34,8 +34,11 @@ export const ContentProvider = ({ children }) => {
       };
 
       // Make API request to backend
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/create-content`, {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://your-backend-url.herokuapp.com/api/create-content'  // Replace with your deployed backend
+        : 'http://localhost:8000/api/create-content';
+        
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,10 +122,9 @@ export const ContentProvider = ({ children }) => {
       console.error('Content creation error:', err);
       
       // Fallback to mock data if API is unavailable (for demo purposes)
-      if (err.message.includes('Failed to fetch') || err.message.includes('fetch')) {
-        console.warn('API unavailable, using mock data for demo');
+      if (err.message.includes('fetch') || err.message.includes('Failed to fetch')) {
+        console.warn('API unavailable, using fallback demo data...');
         
-        // Generate mock results for demo
         const mockResults = {
           topic: formData.topic,
           contentType: formData.contentType,
@@ -130,34 +132,39 @@ export const ContentProvider = ({ children }) => {
           tone: formData.tone,
           platforms: formData.platforms,
           keywords: requestData.keywords,
-          processingTime: Math.floor(Math.random() * 30) + 15,
-          qualityScore: (Math.random() * 1.5 + 8.5).toFixed(1),
-          wordCount: Math.floor(Math.random() * 500) + 800,
+          processingTime: 45,
+          qualityScore: '9.2',
+          wordCount: 1200,
           platformCount: formData.platforms.length,
           
           sampleContent: `Demo content for ${formData.topic}...`,
-          finalContent: `# ${formData.topic}: A Comprehensive Guide\n\n## Introduction\n\n${formData.topic} is an important topic in today's world. This content demonstrates how our AI multi-agent system works to create high-quality, engaging content.\n\n## Key Insights\n\nOur AI agents have researched and analyzed this topic to provide you with:\n\n- Comprehensive research findings\n- Well-structured content\n- SEO optimization\n- Platform-specific adaptations\n- Quality assurance\n\n## Conclusion\n\nThis demonstrates the power of AI multi-agent collaboration for content creation.\n\n*Note: This is demo content. Deploy the backend API for real AI-generated content.*`,
-          metaTitle: `${formData.topic}: Complete Guide 2024`,
-          metaDescription: `Learn about ${formData.topic} with our comprehensive guide covering key insights and practical applications.`,
+          finalContent: `# ${formData.topic}: A Comprehensive Guide\n\n## Introduction\n\n${formData.topic} represents a significant opportunity in today's digital landscape. This comprehensive guide explores the key aspects, benefits, and practical applications.\n\n## Key Insights\n\nThrough extensive research and analysis, we've identified several critical factors that make ${formData.topic} essential for ${formData.targetAudience}.\n\n## Benefits\n\n- Enhanced efficiency and productivity\n- Improved decision-making capabilities  \n- Better user experience\n- Competitive advantage\n\n## Best Practices\n\n1. Start with clear objectives\n2. Implement gradual improvements\n3. Monitor and measure results\n4. Continuously optimize\n\n## Conclusion\n\n${formData.topic} offers tremendous potential for organizations ready to embrace innovation. By following these guidelines, you can maximize benefits and achieve success.\n\n*Note: This is demo content. Deploy the backend API for full AI-generated content.*`,
+          metaTitle: `${formData.topic}: Complete Guide & Best Practices 2024`,
+          metaDescription: `Comprehensive guide to ${formData.topic}. Learn key insights, trends, and applications.`,
+          
           keywordDensity: requestData.keywords.map(keyword => ({
             keyword,
             density: (Math.random() * 1.5 + 1.0).toFixed(1)
           })),
+          
           platformVersions: formData.platforms.map(platform => ({
             platform: platform.charAt(0).toUpperCase() + platform.slice(1),
-            content: `Demo ${platform} content for ${formData.topic}`
+            content: `Demo ${platform} content for ${formData.topic}...`
           })),
+          
           qualityChecks: [
-            'Content structure and flow',
+            'Grammar and spelling accuracy',
+            'Content structure and flow', 
             'SEO optimization compliance',
-            'Platform-specific formatting',
-            'Professional tone maintained'
+            'Platform-specific formatting'
           ],
+          
           recommendations: [
-            'Deploy backend API for real AI content generation',
-            'Consider adding more detailed research',
-            'Implement live API integration'
+            'Deploy backend API for full AI-generated content',
+            'Configure proper environment variables',
+            'Add more detailed keyword research'
           ],
+          
           createdAt: new Date().toISOString()
         };
         
