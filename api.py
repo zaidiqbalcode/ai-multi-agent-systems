@@ -12,7 +12,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from main import SmartContentPipeline
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, origins=["https://ai-multi-agent.netlify.app", "http://localhost:3000"])  # Allow your Netlify domain
 
 # Initialize the pipeline with Google Gemini (configured in .env)
 pipeline = SmartContentPipeline(llm_provider="google", model_name="gemini-1.5-flash")
@@ -233,6 +233,8 @@ if __name__ == '__main__':
     
     # Get port from environment variable (for deployment) or default to 8000
     port = int(os.environ.get('PORT', 8000))
-    print(f"\n🌐 Server running at: http://0.0.0.0:{port}")
+    host = '0.0.0.0'  # Allow external connections
     
-    app.run(debug=False, host='0.0.0.0', port=port)
+    print(f"\n🌐 Server running at: http://{host}:{port}")
+    
+    app.run(debug=False, host=host, port=port)
