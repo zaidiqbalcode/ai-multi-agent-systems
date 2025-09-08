@@ -1,7 +1,5 @@
 # Smart Content Creation Pipeline - AI Multi-Agent System
 
-## LIVE LINK : https://ai-multi-agent.netlify.app/
-
 ## Problem Statement
 
 In today's digital landscape, content creators and marketing teams face the challenge of producing high-quality, platform-specific content at scale. Creating content that is optimized for different platforms (social media, blogs, newsletters) while maintaining consistency, accuracy, and engagement is time-consuming and requires diverse expertise.
@@ -105,26 +103,25 @@ npm install
 
 # 2. Start the React app
 npm start
-```
 
-The React application will open at `http://localhost:3000`
-
-#### Optional: Connect to Python Backend
-```bash
-# In a separate terminal
-pip install flask flask-cors
+# 3. In a separate terminal, start the backend API
+cd ../backend
+pip install -r requirements.txt
 python api.py
 ```
 
-### Option 2: Streamlit Interface
+The React application will open at `http://localhost:3000` and the API will run at `http://localhost:5000`
+
+### Option 2: Streamlit Interface (Legacy)
 
 #### Prerequisites
 ```bash
+cd backend
 pip install -r requirements.txt
 ```
 
 #### Environment Setup
-1. Copy `.env.example` to `.env`
+1. Copy `.env.example` to `.env` (in root or backend folder)
 2. Add your API keys:
    ```
    OPENAI_API_KEY=your_openai_key
@@ -133,6 +130,7 @@ pip install -r requirements.txt
 
 #### Running the Application
 ```bash
+cd backend
 streamlit run app.py
 ```
 
@@ -157,27 +155,32 @@ streamlit run app.py
 ## Project Structure
 
 ```
-smart-content-pipeline/
-├── agents/
-│   ├── __init__.py
-│   ├── research_agent.py
-│   ├── writer_agent.py
-│   ├── editor_agent.py
-│   ├── seo_agent.py
-│   ├── platform_agent.py
-│   └── qa_agent.py
-├── config/
-│   └── agent_config.yaml
-├── utils/
-│   ├── __init__.py
-│   └── helpers.py
-├── app.py
-├── main.py
-├── requirements.txt
-├── .env.example
-└── README.md
+ai-multi-agent-systems/
+├── backend/                 # Python backend API
+│   ├── agents/             # AI agent definitions
+│   ├── config/             # Configuration files
+│   ├── utils/              # Utility functions
+│   ├── api.py              # Flask REST API
+│   ├── main.py             # CrewAI pipeline
+│   ├── requirements.txt    # Python dependencies
+│   ├── Procfile           # Deployment config
+│   ├── railway.json       # Railway deployment
+│   └── README.md          # Backend documentation
+├── frontend/               # React frontend
+│   ├── src/               # React source code
+│   ├── public/            # Static assets
+│   ├── package.json       # Node dependencies
+│   └── README.md          # Frontend documentation
+├── .env.example           # Environment template
+├── PROJECT_OVERVIEW.md    # Detailed project overview
+├── API_SETUP.md           # API keys setup guide
+├── DEPLOYMENT.md          # Deployment instructions
+└── README.md              # Main documentation
 ```
 
+## Demo
+
+[Live Demo Link] - (To be deployed on Streamlit Cloud)
 
 ## Future Enhancements
 
