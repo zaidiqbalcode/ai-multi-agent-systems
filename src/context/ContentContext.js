@@ -131,7 +131,9 @@ export const ContentProvider = ({ children }) => {
           targetAudience: formData.targetAudience,
           tone: formData.tone,
           platforms: formData.platforms,
-          keywords: requestData.keywords,
+          keywords: Array.isArray(formData.keywords) 
+            ? formData.keywords 
+            : (formData.keywords ? formData.keywords.split(',').map(k => k.trim()) : []),
           processingTime: 45,
           qualityScore: '9.2',
           wordCount: 1200,
@@ -142,7 +144,10 @@ export const ContentProvider = ({ children }) => {
           metaTitle: `${formData.topic}: Complete Guide & Best Practices 2024`,
           metaDescription: `Comprehensive guide to ${formData.topic}. Learn key insights, trends, and applications.`,
           
-          keywordDensity: requestData.keywords.map(keyword => ({
+          keywordDensity: (Array.isArray(formData.keywords) 
+            ? formData.keywords 
+            : (formData.keywords ? formData.keywords.split(',').map(k => k.trim()) : [])
+          ).map(keyword => ({
             keyword,
             density: (Math.random() * 1.5 + 1.0).toFixed(1)
           })),
