@@ -35,7 +35,7 @@ export const ContentProvider = ({ children }) => {
 
       // Make API request to backend
       const apiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://your-backend-url.herokuapp.com/api/create-content'  // Replace with your deployed backend
+        ? 'https://ai-multi-agent-systems-backend.onrender.com/api/create-content'  // Render backend URL
         : 'http://localhost:8000/api/create-content';
         
       const response = await fetch(apiUrl, {
