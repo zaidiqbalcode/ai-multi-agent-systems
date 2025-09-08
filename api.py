@@ -230,6 +230,9 @@ if __name__ == '__main__':
     print("   GET  /api/agents          - Get agent information")
     print("   GET  /api/content-types   - Get content types")
     print("   GET  /api/platforms       - Get platform information")
-    print("\n🌐 Server running at: http://localhost:8000")
     
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    # Get port from environment variable (for deployment) or default to 8000
+    port = int(os.environ.get('PORT', 8000))
+    print(f"\n🌐 Server running at: http://0.0.0.0:{port}")
+    
+    app.run(debug=False, host='0.0.0.0', port=port)
